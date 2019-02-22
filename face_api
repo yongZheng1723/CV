@@ -4,6 +4,17 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from matplotlib import patches
 from io import BytesIO
+
+headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
+    
+params = {
+    'returnFaceId': 'true',
+    'returnFaceLandmarks': 'false',
+   # 'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise',
+}
+
+response = requests.post(face_api_url, params=params, headers=headers, json={"url": image_url})
+faces = response.json()
 #print("********************开心程度/////年龄****************")
 response = requests.get(image_url)
 image = Image.open(BytesIO(response.content))
